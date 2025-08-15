@@ -30,12 +30,6 @@ export function openStream(question, { onMeta, onToken, onDone, onError }) {
 	});
 
 	es.addEventListener("error", (e) => {
-		onError?.(e);
-		es.close();
-	});
-
-	// Optional: handle custom server error event
-	es.addEventListener("error", (e) => {
 		try {
 			const data = JSON.parse(e.data);
 			onError?.(new Error(data.message || "Stream error"));
